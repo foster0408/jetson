@@ -1,0 +1,192 @@
+sudo apt-get install chromium-browser
+sudo apt-get install python3-setuptools
+sudo apt update
+sudo apt install python3-pip
+pip3 install imutils
+git clone https://github.com/thehapyone/NanoCamera
+cd NanoCamera
+sudo python3 setup.py install
+sudo apt-get install python3-pyqt5
+sudo apt-get install pyqt5-dev-tools
+sudo apt-get install qttools5-dev-tools
+qtchooser -run-tool=designer -qt=5
+#pyuic5 -x filename.ui -o filename.py
+sudo apt-get install mysql-server
+sudo mysql_secure_installation
+Y-> pass:mysql 
+sudo mysql -u root -p 
+pass: mysql
+#show database;
+
+CREATE USER 'vqbg'@'localhost' IDENTIFIED BY 'vqbg123!';
+GRANT ALL PRIVILEGES ON *.* TO 'vqbg'@'localhost';
+exit;
+sudo mysql -u vqbg -p
+pass: vqbg123!
+CREATE DATABASE CAMERA_PAPER;
+exit;
+# Bảng dữ liệu phần mềm sẽ tạo ra khi khỏi động SETTING_DATA_2
+# USE CAMERA_PAPER;
+# SELECT * FROM SETTING_DATA_2;
+pip3 install mysql-connector
+pip3 install mysql-connector-python
+sudo snap install pycharm-community --edge --classic
+#https://code.visualstudio.com/Download#
+~/Downloads$ sudo dpkg -i code_1.95.3-1731512059_arm64.deb
+
+
+sudo apt install libcanberra-gtk-module libcanberra-gtk3-module
+sudo /opt/nvidia/jetson-io/jetson-io.py
+pip3 install pymodbus
+sudo apt install v4l-utils
+v4l2-ctl --list-devices
+v4l2-ctl -d /dev/video0 --all
+sudo apt-get install pulseaudio
+sudo apt-get install pavucontrol
+pavucontrol
+# cai pycuda
+export PATH=/usr/local/cuda/bin:$PATH
+cat /usr/local/cuda/version.txt
+nvcc --version
+pip3 install pycuda
+
+sudo apt install python-smbus
+
+#dummy output solve 
+sudo touch /usr/share/pipewire/media-session.d/with-pulseaudio
+systemctl --user restart pipewire-session-manager
+sudo apt-get install ibus-unikey
+
+#yoloV9 on jetson orrin 
+https://www.youtube.com/watch?v=aWDFtBPN2HM
+
+ Cài đặt pytorch và chạy thử mô hình YoloV8.pt
+pip3 install -U python-dateutil
+pip3 install ultralytics
+pip3 uninstall torch
+pip3 uninstall torchvision
+#https://docs.nvidia.com/deeplearning/frameworks/install-pytorch-jetson-platform/index.html
+
+
+sudo apt-get -y update; 
+sudo apt-get install -y  python3-pip libopenblas-dev;
+#torch-2.2.0a0+81ea7a4.nv24.01-cp310-cp310-linux_aarch64.whl
+#export TORCH_INSTALL=https://developer.download.nvidia.cn/compute/redist/jp/v60dp/pytorch/torch-2.2.0a0+81ea7a4.nv24.01-cp310-cp310-linux_aarch64.whl
+python3 -m pip install --upgrade pip
+python3 -m pip install numpy==1.26.1
+pip3 install torch-2.2.0a0+81ea7a4.nv24.01-cp310-cp310-linux_aarch64.whl
+python3
+import torch
+torch.cuda.is_avalable()
+sudo apt-get install libjpeg-dev zlib1g-dev libpython3-dev libopenblas-dev libavcodec-dev libavformat-dev libswscale-dev
+git clone --branch v0.17.0 https://github.com/pytorch/vision torchvision
+
+#export GIT_TRACE_PACKET=1
+#export GIT_TRACE=1
+#export GIT_CURL_VERBOSE=1
+cd torchvision
+export BUILD_VERSION=0.17.0
+python3 setup.py install --user
+git clone https://github.com/WongKinYiu/yolov9.git
+# xoa numpy.opencv/torch,torchvision trong file requirment.txt in yolov9
+cd yolov9/
+pip3 install -r requirements.txt
+
+#https://github.com/WongKinYiu/yolov9
+#--> README.md 
+download yolov9-e.pt
+
+python3 detect.py --weights yolov9-e.pt 
+#--> Error 
+#Sua file dectec.py dong 98 : pred, _ = model(im, augment=augment, visualize=visualize)
+#run again check runs/detect/exp2
+pip3 install onnx
+pip3 install onnxsim
+git clone https://github.com/LinhanDai/yolov9-tensorrt.git
+# export onnx
+cd yolov9
+python3 export.py --weights yolov9-e.pt --simplify --include "onnx" --device 0
+
+copy yolov9-e.onnx to /home/vqbg/yolov9-tensorrt/configs
+#sua file yolov9.yaml & engin onnxFile: "yolov9-e.onnx"       # The currently used onnx model file
+#engineFile: "yolov9-e.engine"
+cd yolov9-tensorrt
+mkdir build
+cd build
+cmake .. 
+make -j4
+##--> error2
+https://github.com/colmap/colmap/issues/1418
+cmake .. \
+        -DCUDA_ENABLED=ON \
+        -DCUDA_NVCC_FLAGS="--std c++14" && \
+        make -j$(( $(nproc) + 1 ))
+
+cd
+
+pip3 install pycuda
+pip3 list
+pip3 uninstall opencv-python-headless
+sudo apt-get install tensorrt nvidia-tensorrt-dev python3-libnvinfer-dev
+cd yolov9_tensorrt
+python3 yolov9_trt.py
+
+git clone https://github.com/JetsonHacksNano/installLibrealsense.git
+Sua trong build.sh
+/usr/bin/cmake ../ -DBUILD_EXAMPLES=true -DFORCE_LIBUVC=ON -DBUILD_WITH_CUDA="$USE_CUDA" -DCMAKE_BUILD_TYPE=release -DBUILD_PYTHON_BINDINGS=bool:true -DPYTHON_EXECUTABLE=$(which python3)
+
+cd installLibrealsense 
+./buildLibrealsense.sh -j 2
+unhile home
+vao file bashrc
+sua dong cuoi thanh : 
+
+sua file trt : 
+cuda.memcpy_dtoh_async(self.host_outputs[6], self.cuda_outputs[6], self.stream)
+        # Synchronize the stream
+        self.stream.synchronize()
+        # Here we use the first row of output in that batch_size = 1
+        output = self.host_outputs[6]
+--- >
+cuda.memcpy_dtoh_async(self.host_outputs[1], self.cuda_outputs[1], self.stream)
+        # Synchronize the stream
+        self.stream.synchronize()
+        # Here we use the first row of output in that batch_size = 1
+        output = self.host_outputs[1]
+
+
+
+#export TORCH_INSTALL=https://developer.download.nvidia.cn/compute/redist/jp/v511/pytorch/torch-2.0.0+nv23.05-cp38-cp38-linux_aarch64.whl
+export TORCH_INSTALL=https://developer.download.nvidia.cn/compute/redist/jp/v61/pytorch/torch-2.5.0a0+872d972e41.nv24.08.17622132-cp310-cp310-linux_aarch64.whl
+##version: torch-2.5.0a0+872d972e41.nv24.08.17622132-cp310-cp310-linux_aarch64.whl
+#python3 -m pip install --upgrade pip; python3 -m pip install aiohttp;
+#export "LD_LiBRARY_PATH=/usr/lib/llvw-8/lib:$LD_LIBRARY_PATH"
+#python3 -m pip install --upgrade protobuf
+python3 -m pip install numpy==’1.26.1’; python3 -m pip install --no-cache $TORCH_INSTALL
+#https://forums.developer.nvidia.com/t/pytorch-for-jetson/72048
+
+sudo apt-get install libjpeg-dev zlib1g-dev libpython3-dev libopenblas-dev libavcodec-dev libavformat-dev libswscale-dev
+# git clone --branch <version> https://github.com/pytorch/vision torchvision   # see below for version of torchvision to download
+# cd torchvision
+# export BUILD_VERSION=0.x.0  # where 0.x.0 is the torchvision version  
+# python3 setup.py install --user
+# cd ../  # attempting to load torchvision from build dir will result in import error
+# pip install 'pillow<7' # always needed for Python 2.7, not needed torchvision v0.5.0+ with Python 3.6
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,172 @@
+sudo apt-get install chromium-browser
+sudo apt-get install python3-setuptools
+sudo apt update
+sudo apt install python3-pip
+pip3 install imutils
+#pip3 install nanocamera
+git clone https://github.com/thehapyone/NanoCamera
+cd NanoCamera
+sudo python3 setup.py install
+#pip3 install --user pyqt5
+sudo apt-get install python3-pyqt5
+sudo apt-get install pyqt5-dev-tools
+sudo apt-get install qttools5-dev-tools
+qtchooser -run-tool=designer -qt=5
+#pyuic5 -x filename.ui -o filename.py
+sudo apt-get install mysql-server
+sudo mysql_secure_installation
+Y-> pass:mysql 
+sudo mysql -u root -p 
+pass: mysql
+#show database;
+
+CREATE USER 'vqbg'@'localhost' IDENTIFIED BY 'vqbg123!';
+GRANT ALL PRIVILEGES ON *.* TO 'vqbg'@'localhost';
+exit;
+sudo mysql -u vqbg -p
+pass: vqbg123!
+CREATE DATABASE CAMERA_PAPER;
+exit;
+# Bảng dữ liệu phần mềm sẽ tạo ra khi khỏi động SETTING_DATA_2
+# USE CAMERA_PAPER;
+# SELECT * FROM SETTING_DATA_2;
+
+pip3 install mysql-connector
+sudo snap install pycharm-community --edge --classic
+
+sudo apt install libcanberra-gtk-module libcanberra-gtk3-module
+sudo /opt/nvidia/jetson-io/jetson-io.py
+pip3 install pymodbus
+sudo apt install v4l-utils
+v4l2-ctl --list-devices
+v4l2-ctl -d /dev/video0 --all
+
+sudo apt-get install pulseaudio
+sudo apt-get install pavucontrol
+pavucontrol
+# cai pycuda
+export PATH=/usr/local/cuda/bin:$PATH
+cat /usr/local/cuda/version.txt
+nvcc --version
+pip3 install pycuda
+https://www.waveshare.com/wiki/IMX477_12.3MP_Camera
+
+DISPLAY=:0.0 gst-launch-1.0 nvarguscamerasrc ! 'video/x-raw(memory:NVMM), width=1920, height=1080, format=(string)NV12, framerate=(fraction)20/1' ! nvoverlaysink -e
+
+
+# cai dat ip jetson nano
+nmcli connection show
+ip link show
+
+nmcli connection add type ethernet ifname eth0 con-name my-eth0
+nmcli connection modify my-eth0 ipv4.addresses 192.168.1.100/24
+nmcli connection modify my-eth0 ipv4.gateway 192.168.1.1
+nmcli connection modify my-eth0 ipv4.dns 8.8.8.8
+nmcli connection modify my-eth0 ipv4.method manual
+
+sudo systemctl restart NetworkManager
+nmcli connection up my-eth0
+ip addr show eth0
+#Cai dat audio HDMi
+sudo apt-get install pulseaudio
+sudo apt-get install pavucontrol
+pavucontrol
+# cai pycuda
+export PATH=/usr/local/cuda/bin:$PATH
+cat /usr/local/cuda/version.txt
+nvcc --version
+pip3 install pycuda
+/usr/src/tensorrt/bin/trtexec --onnx=mobilenetv2-12.onnx --saveEngine=model_32.trt
+Install IMX477
+wget https://github.com/ArduCAM/MIPI_Camera/releases/download/v0.0.3/install_full.sh
+
+chmod +x install_full.sh
+./install_full.sh -h
+./install_full.sh -m imx477
+
+Supported modules:
+	imx219
+	imx477_v3link
+	imx219_v3link
+	imx477_stereo
+	arducam
+	imx477_master_slave
+	imx519
+	imx708_v3link
+	imx477
+	imx708
+	imx519_v3link
+	imx230
+	imx298
+git clone https://github.com/ArduCAM/MIPI_Camera.git
+sudo apt install python-smbus
+cd ~
+wget https://github.com/ArduCAM/MIPI_Camera/releases/download/v0.0.3/install_full.sh
+chmod +x install_full.sh
+./install_full.sh -m imx519
+v4l2-ctl --list-formats-ext
+preview
+SENSOR_ID=0 
+FRAMERATE=60
+gst-launch-1.0 nvarguscamerasrc sensor-id=$SENSOR_ID ! "video/x-raw(memory:NVMM),width=1920,height=1080,framerate=$FRAMERATE/1" ! nvvidconv ! nveglglessink -e
+
+gst-launch-1.0 nvarguscamerasrc sensor-id=$SENSOR_ID ! "video/x-raw(memory:NVMM),width=1920,height=1080,framerate=$FRAMERATE/1" ! nvvidconv ! nveglglessink -e
+
+capture:
+SENSOR_ID=0 # 0 for CAM0 and 1 for CAM1 ports
+FRAMERATE=60 # Framerate can go from 2 to 60 for 1920x1080 mode
+gst-launch-1.0 -e nvarguscamerasrc sensor-id=$SENSOR_ID ! "video/x-raw(memory:NVMM),width=1920,height=1080,framerate=$FRAMERATE/1" ! nvv4l2h264enc ! h264parse ! mp4mux ! filesink location=rpi_v3_imx477_cam$SENSOR_ID.mp4
+
+#dummy output solve 
+sudo touch /usr/share/pipewire/media-session.d/with-pulseaudio
+systemctl --user restart pipewire-session-manager
+
+unikey 
+sudo apt-get install ibus-unikey
+
+# Cài đặt pytorch và chạy thử mô hình YoloV8.pt
+
+pip3 install -U python-dateutil
+pip3 install ultralytics
+pip3 uninstall torch
+pip3 uninstall torchvision
+#https://docs.nvidia.com/deeplearning/frameworks/install-pytorch-jetson-platform/index.html
+
+
+sudo apt-get -y update; 
+sudo apt-get install -y  python3-pip libopenblas-dev;
+#export TORCH_INSTALL=https://developer.download.nvidia.cn/compute/redist/jp/v511/pytorch/torch-2.0.0+nv23.05-cp38-cp38-linux_aarch64.whl
+export TORCH_INSTALL=https://developer.download.nvidia.cn/compute/redist/jp/v61/pytorch/torch-2.5.0a0+872d972e41.nv24.08.17622132-cp310-cp310-linux_aarch64.whl
+##version: torch-2.5.0a0+872d972e41.nv24.08.17622132-cp310-cp310-linux_aarch64.whl
+#python3 -m pip install --upgrade pip; python3 -m pip install aiohttp;
+#export "LD_LiBRARY_PATH=/usr/lib/llvw-8/lib:$LD_LIBRARY_PATH"
+#python3 -m pip install --upgrade protobuf
+python3 -m pip install numpy==’1.26.1’; python3 -m pip install --no-cache $TORCH_INSTALL
+#https://forums.developer.nvidia.com/t/pytorch-for-jetson/72048
+
+sudo apt-get install libjpeg-dev zlib1g-dev libpython3-dev libopenblas-dev libavcodec-dev libavformat-dev libswscale-dev
+# git clone --branch <version> https://github.com/pytorch/vision torchvision   # see below for version of torchvision to download
+# cd torchvision
+# export BUILD_VERSION=0.x.0  # where 0.x.0 is the torchvision version  
+# python3 setup.py install --user
+# cd ../  # attempting to load torchvision from build dir will result in import error
+# pip install 'pillow<7' # always needed for Python 2.7, not needed torchvision v0.5.0+ with Python 3.6
+
+
+#yoloV9 on jetson orrin 
+https://www.youtube.com/watch?v=aWDFtBPN2HM
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
